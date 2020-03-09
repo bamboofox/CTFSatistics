@@ -44,6 +44,7 @@ def genRankHtml():
         ranking[i]['rank'] = i+1
 
     build_html("rank.html", "rank.html", {"ranking": ranking})
+    build_html("rank.html", "index.html", {"ranking": ranking})
 
 def genUserData(username):
     user = getUserDetail(username)
