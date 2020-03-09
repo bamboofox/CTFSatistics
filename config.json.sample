@@ -1,0 +1,8 @@
+{
+    "trello_apikey": "",
+    "trello_token": "",
+    "trello_baseurl": "https://api.trello.com/1/",
+    "ctftime_baseurl": "https://ctftime.org/api/v1/",
+    "ctftime_teamid": 1234,
+    "path_prefix": "/"
+}

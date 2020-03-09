@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}Events - BambooFox CTF Statistics{% endblock %}
+
+{% block main %}
+<div class="container">
+    <h1>Events</h1>
+    <table class="table table-hover">
+        <tr>
+            <th>Event</th>
+            <th>Weight</th>
+            <th>Rank</th>
+            <th>Score</th>
+        </tr>
+        {% for e in events %}
+        <tr>
+            <td><a href="{{PATH_PREFIX}}events/{{e['trello_id']}}.html">{{e['name']}}</a></td>
+            <td>{{e['rating']}}</td>
+            <td>{{e['rank']}}</td>
+            <td>{{e['total_score']}}</td>
+        <tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}{{eventname}} - BambooFox CTF Statistics{% endblock %}
+
+{% block main %}
+<div class="container">
+    <h1>{{eventname}}</h1>
+    <table class="table table-hover">
+        <tr>
+            <th>Username</th>
+            <th>Rating</th>
+            <th>Score</th>
+            <th>Active Tasks</th>
+            <th>Solve Tasks</th>
+        </tr>
+        {% for e in users %}
+        <tr>
+            <td><a href="{{PATH_PREFIX}}users/{{e['username']}}.html">{{e['username']}}</a></td>
+            <td>{{e['rating']}}</td>
+            <td>{{e['score']}} ({{e['score_rate']}}%)</td>
+            <td>{{e['attend']}}</td>
+            <td>{{e['solves']}}</td>
+        <tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
