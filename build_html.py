@@ -2,13 +2,15 @@ from jinja2 import Environment, FileSystemLoader
 from datastore import getStatisticsData, getUserDetail
 from functools import cmp_to_key
 from config import Config
+import shutil
+import os
 
 env = Environment(loader=FileSystemLoader('./template'))
 env.globals['PATH_PREFIX'] = Config['path_prefix']
 
 def build_html(template, dst, params = {}):
     template = env.get_template(template)
-    with open("html/"+dst,"w") as f:
+    with open(Config['build_dir_path']+dst,"w") as f:
         f.write(template.render(params))
 
 #build_html("rank.html", "rank.html")
@@ -121,12 +123,19 @@ def genEvents():
     events.sort(key = cmp_to_key(cmp))
     build_html("events.html", "events.html", {"events": events})
 
-genRankHtml()
-#genUserHtml("lys0829")
-for u in Stat['users']:
-    genUserHtml(u)
-    
-#genEventHtml("HackTMCTF2020")
-genEvents()
-for e in Stat['contests']:
-    genEventHtml(e)
+def build_full():
+    if not os.path.isdir(Config['build_dir_path']):
+        os.makedirs(Config['build_dir_path'])
+        os.makedirs(Config['build_dir_path']+"users/")
+        os.makedirs(Config['build_dir_path']+"events/")
+    if not os.path.isdir(Config['build_dir_path']+"/static/"):
+        shutil.copytree("template/static/",Config['build_dir_path']+"/static/")
+    genRankHtml()
+    for u in Stat['users']:
+        genUserHtml(u)
+        
+    genEvents()
+    for e in Stat['contests']:
+        genEventHtml(e)
+
+build_full()
