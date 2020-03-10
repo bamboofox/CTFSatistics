@@ -27,6 +27,7 @@ def update(contest, People_data, contestdata):
         personal_data[contest['name']] = People_data[p]
         
         Users[p]['rating'] += personal_data[contest['name']]['rating']
+        Users[p]['rating'] = round(Users[p]['rating'], 2)
         Users[p]['attend'] += personal_data[contest['name']]['attend']
 
         Users[p]['attend_contests'] = len(personal_data)
