@@ -142,12 +142,13 @@ for chal in Challenges:
             #    ps = int(round(chal['score']/len(chal['members'])))
             if m in chal['score_param']:
                 ps = int(round(chal['score']*(chal['score_param'][m]/chal['score_param_sum'])))
+            elif len(chal['score_param']) == 0:
+                ps = int(round(chal['score']*(1/len(chal['members']))))
         
         People[m]['score_list'][chal['name']] = ps
         People[m]['score'] += ps
 import json
 #print(People)
-print(json.dumps(People,indent = 2))
 
 for p in People:
     r = Contest['rating'] * 10.0 * (People[p]['score'] / Contest['total_score'])
@@ -155,3 +156,5 @@ for p in People:
     People[p]['rating'] = r
 
 update(Contest, People, Challenges)
+
+print(json.dumps(People,indent = 2))
